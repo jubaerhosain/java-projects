@@ -1,5 +1,7 @@
 package client_management;
+import com.example.studentmanagement.ActionTypes;
 import com.example.studentmanagement.Connection;
+import com.example.studentmanagement.EMPair;
 import com.example.studentmanagement.Student;
 
 import java.net.Socket;
@@ -7,17 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientStudent implements ClientPerson {
-    private Connection studentConnection;
+    private ActionTypes actionTypes;
 
-    public ClientStudent(Socket studentSocket) {
-        this.studentConnection = new Connection(studentSocket);
+    public ClientStudent() {
+        this.actionTypes = new ActionTypes();
     }
 
     @Override
-    public <Student> boolean signUp(Student student) {
+    public <Student> boolean signUp(Student student, Socket studentSocket) {
+        Connection studentConnection = new Connection(studentSocket);
+
         List<String> message = new ArrayList<>(2);
+        // [object type, action]
         message.add("student");
-        message.add("signUp");
+        message.add(actionTypes.getSignUp());
 
         studentConnection.writeObject(message);
         String messageFromServer = (String) studentConnection.readObject();
@@ -28,16 +33,49 @@ public class ClientStudent implements ClientPerson {
         messageFromServer = (String) studentConnection.readObject();
         System.out.println(messageFromServer);
 
-        return false;
+        return true;
     }
 
     @Override
-    public <Student> boolean logIn(Student student) {
-        return false;
+    public <EMPair> boolean logIn(EMPair emPair, Socket studentSocket) {
+        Connection studentConnection = new Connection(studentSocket);
+        List<String> message = new ArrayList<>(2);
+        // [object type, action]
+        message.add("student");
+        message.add(actionTypes.getLogIn());
+
+        studentConnection.writeObject(message);
+        String ackMessage = (String) studentConnection.readObject();
+        System.out.println(ackMessage);
+
+
+        studentConnection.writeObject(emPair);
+        String confirmationMessage = (String) studentConnection.readObject();
+        System.out.println(confirmationMessage);
+        return true;
     }
 
     @Override
-    public List<Object> getInformation() {
-        return null;
+    public List<Object> getInformation(Socket studentSocket) {
+        Connection studentConnection = new Connection(studentSocket);
+        List<String> message = new ArrayList<>(2);
+        // [object type, action]
+        message.add("student");
+        message.add(actionTypes.getGetInformation());
+
+        studentConnection.writeObject(message);
+        String ackMessage = (String) studentConnection.readObject();
+        System.out.println(ackMessage);
+
+        List<Object> objects = (List<Object>) studentConnection.readObject();
+        try {
+            for(Object object: objects) {
+                System.out.println((Student)object);
+            }
+        } catch (NullPointerException e) {
+            System.out.println("objects is null at ClientStudent.java/List<Object> getInformation()");
+        }
+
+        return objects;
     }
 }

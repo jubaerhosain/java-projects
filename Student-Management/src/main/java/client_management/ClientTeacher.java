@@ -10,24 +10,24 @@ import java.net.Socket;
 import java.util.List;
 
 public class ClientTeacher implements ClientPerson {
-    private Connection teacherConnection;
 
-    public ClientTeacher(Socket studentSocket) {
-        this.teacherConnection = new Connection(studentSocket);
+    public ClientTeacher() {
+
     }
 
     @Override
-    public <Teacher> boolean signUp(Teacher teacher) {
+    public <Teacher> boolean signUp(Teacher teacher, Socket teacherSocket) {
         return false;
     }
 
     @Override
-    public <Teacher> boolean logIn(Teacher teacher) {
+    public <Type> boolean logIn(Type object, Socket teacherSocket) {
         return false;
     }
 
     @Override
-    public List<Object> getInformation() {
+    public List<Object> getInformation(Socket teacherSocket) {
         return null;
     }
+
 }

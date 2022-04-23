@@ -13,37 +13,57 @@ public class Query {
         this.objectIO = new ObjectIO();
     }
 
-    public boolean signUp(String fileName, Object object) {
-        objectIO.appendObject(fileName, object);
+    public boolean studentSignUp(String fileName, Student student) {
+        List<Object> students =  getInformation(fileName);
+        try {
+            for(Object object: students) {
+                Student currentObject = (Student) object;
+                if(student.matchEmail(currentObject.getEmail()))
+                    return false;
+            }
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException at StudentSignUp.");
+        }
+        objectIO.appendObject(fileName, student);
         return true;
     }
 
-    public boolean logIn(String fileName, Object pair, String objectType) {
-        EMPair emPair = (EMPair) pair;
-        List<Object> personList = objectIO.readObjects(fileName);
-
-        if(objectType.equals("student")) {
-            for(Object person: personList) {
-                Student student = (Student) person;
-                if(student.matchEmail(emPair.getEmail()) && student.matchPassword(emPair.getPassword()))
-                    return true;
+    public boolean teacherSignUp(String fileName, Teacher teacher) {
+        List<Object> teachers =  getInformation(fileName);
+        try {
+            for(Object object: teachers) {
+                Student currentObject = (Student) object;
+                if(teacher.matchEmail(currentObject.getEmail()))
+                    return false;
             }
-            return false;
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException at TeacherSignUp.");
         }
-        else if(objectType.equals("teacher")) {
-            for(Object person: personList) {
-                Teacher teacher = (Teacher) person;
-                if(teacher.matchEmail(emPair.getEmail()) && teacher.matchPassword(emPair.getPassword()))
-                    return true;
-            }
-            return false;
-        }
-
+        objectIO.appendObject(fileName, teacher);
         return true;
+    }
+
+    public boolean studentLogIn(String fileName, EMPair emPair) {
+        List<Object> personList = objectIO.readObjects(fileName);
+        for(Object person: personList) {
+            Student student = (Student) person;
+            if(student.matchEmail(emPair.getEmail()) && student.matchPassword(emPair.getPassword()))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean teacherLogIn(String fileName, EMPair emPair) {
+        List<Object> personList = objectIO.readObjects(fileName);
+        for(Object person: personList) {
+            Student student = (Student) person;
+            if(student.matchEmail(emPair.getEmail()) && student.matchPassword(emPair.getPassword()))
+                return true;
+        }
+        return false;
     }
 
     public List<Object> getInformation(String fileName) {
-        List<Object> objects = objectIO.readObjects(fileName);
-        return null;
+        return objectIO.readObjects(fileName);
     }
 }

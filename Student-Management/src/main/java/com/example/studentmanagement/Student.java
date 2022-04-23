@@ -65,4 +65,18 @@ public class Student extends Person {
     public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
+
+    @Override
+    public String toString() {
+
+        return  super.toString() +
+                "Student{" +
+                "studentId=" + studentId +
+                ", session='" + session + '\'' +
+                ", className='" + className + '\'' +
+                ", group='" + group + '\'' +
+                ", classRoll='" + classRoll + '\'' +
+                ", registrationNumber='" + registrationNumber + '\'' +
+                '}';
+    }
 }
