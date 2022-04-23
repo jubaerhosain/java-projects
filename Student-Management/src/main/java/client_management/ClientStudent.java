@@ -69,8 +69,12 @@ public class ClientStudent implements ClientPerson {
 
         List<Object> objects = (List<Object>) studentConnection.readObject();
         try {
+            int count = 1;
+            System.out.println("==========Students==========");
             for(Object object: objects) {
+                System.out.println(count + ".");
                 System.out.println((Student)object);
+                count += 1;
             }
         } catch (NullPointerException e) {
             System.out.println("objects is null at ClientStudent.java/List<Object> getInformation()");

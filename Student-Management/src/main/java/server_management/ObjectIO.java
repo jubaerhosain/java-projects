@@ -10,7 +10,7 @@ public class ObjectIO {
 
     }
 
-    public void appendObject(String fileName, Object object) {
+    public synchronized void appendObject(String fileName, Object object) {
         try {
             FileOutputStream fos = new FileOutputStream(fileName, true);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -22,7 +22,7 @@ public class ObjectIO {
         }
     }
 
-    public List<Object> readObjects(String fileName) {
+    public synchronized List<Object> readObjects(String fileName) {
         List<Object> objects = new ArrayList<>();
         try {
             FileInputStream fis = new FileInputStream(fileName);

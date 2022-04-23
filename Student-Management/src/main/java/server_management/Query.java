@@ -32,7 +32,7 @@ public class Query {
         List<Object> teachers =  getInformation(fileName);
         try {
             for(Object object: teachers) {
-                Student currentObject = (Student) object;
+                Teacher currentObject = (Teacher) object;
                 if(teacher.matchEmail(currentObject.getEmail()))
                     return false;
             }
@@ -56,8 +56,8 @@ public class Query {
     public boolean teacherLogIn(String fileName, EMPair emPair) {
         List<Object> personList = objectIO.readObjects(fileName);
         for(Object person: personList) {
-            Student student = (Student) person;
-            if(student.matchEmail(emPair.getEmail()) && student.matchPassword(emPair.getPassword()))
+            Teacher teacher = (Teacher) person;
+            if(teacher.matchEmail(emPair.getEmail()) && teacher.matchPassword(emPair.getPassword()))
                 return true;
         }
         return false;

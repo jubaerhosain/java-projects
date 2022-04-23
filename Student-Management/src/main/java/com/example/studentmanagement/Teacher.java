@@ -2,11 +2,11 @@ package com.example.studentmanagement;
 
 public class Teacher extends Person{
     private Integer teacherId;
-    private Integer designation;
+    private String designation;
     private Double salary;
 
-    public Teacher(String firstName, String lastName, String email, String password, String sex, Integer age, Integer teacherId, Integer designation, Double salary) {
-        super(firstName, lastName, email, password, sex, age);
+    public Teacher(String name, String email, String password, Integer teacherId, String designation, Double salary) {
+        super(name, email, password);
         this.teacherId = teacherId;
         this.designation = designation;
         this.salary = salary;
@@ -20,11 +20,11 @@ public class Teacher extends Person{
         this.teacherId = teacherId;
     }
 
-    public Integer getDesignation() {
+    public String getDesignation() {
         return designation;
     }
 
-    public void setDesignation(Integer designation) {
+    public void setDesignation(String designation) {
         this.designation = designation;
     }
 
@@ -38,11 +38,9 @@ public class Teacher extends Person{
 
     @Override
     public String toString() {
-        return  super.toString() +
-                "Teacher{" +
-                "teacherId=" + teacherId +
-                ", designation=" + designation +
-                ", salary=" + salary +
-                '}';
+        return  super.toString() + '\n' +
+                "Teacher Id = " + teacherId + '\n' +
+                "Designation = " + designation + '\n' +
+                "Salary = " + salary + '\n';
     }
 }

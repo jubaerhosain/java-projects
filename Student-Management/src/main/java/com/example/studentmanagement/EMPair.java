@@ -1,8 +1,10 @@
 package com.example.studentmanagement;
 
+import java.io.Serializable;
+
 /** Pair of Email and Password */
 
-public class EMPair {
+public class EMPair implements Serializable {
     private String email;
     private String password;
 
