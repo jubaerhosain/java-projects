@@ -1,15 +1,14 @@
-package client_management;
+package com.example.studentmanagement;
 
 
-import com.example.studentmanagement.EMPair;
-import com.example.studentmanagement.Student;
-import com.example.studentmanagement.Teacher;
+import client_management.ClientStudent;
+import client_management.ClientTeacher;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Client {
+public class Main {
     private Scanner scanner;
     private ClientStudent clientStudent;
     private ClientTeacher clientTeacher;
@@ -17,7 +16,7 @@ public class Client {
     private String serverIp;
     private Integer serverPortNumber;
 
-    public Client() {
+    public Main() {
         scanner = new Scanner(System.in);
         clientStudent = new ClientStudent();
         clientTeacher = new ClientTeacher();
@@ -153,9 +152,9 @@ public class Client {
         }
     }
 
-    public static void main(String[] args) {
+    public void run() {
         Scanner scanner = new Scanner(System.in);
-        Client client = new Client();
+        Main main = new Main();
 
         while(true) {
             System.out.println("Press 0 for exit.");
@@ -169,9 +168,9 @@ public class Client {
             if(type == 0) {
                 System.exit(0);
             } else if(type == 1) {
-                client.student();
+                main.student();
             } else if(type == 2) {
-                client.teacher();
+                main.teacher();
             }
         }
     }

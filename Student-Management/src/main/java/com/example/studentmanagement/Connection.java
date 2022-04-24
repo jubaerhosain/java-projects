@@ -17,7 +17,7 @@ public class Connection {
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             objectInputStream = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
-            System.out.println("IOException at Connection for client " + socket.getInetAddress());
+            System.out.println(e.getMessage() + "," + this.getClass());
         }
     }
 
@@ -25,7 +25,7 @@ public class Connection {
         try {
             objectOutputStream.writeObject(object);
         } catch (IOException e) {
-            System.out.println("Couldn't able to write message for " + socket.getInetAddress());
+            System.out.println(e.getMessage() + "," + this.getClass());
         }
     }
 
@@ -34,7 +34,7 @@ public class Connection {
             Object object = objectInputStream.readObject();
             return object;
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Couldn't able to write message for " + socket.getInetAddress());
+            System.out.println(e.getMessage() + "," + this.getClass());
         }
         return new Object();
     }
@@ -43,7 +43,7 @@ public class Connection {
         try {
             socket.close();
         } catch (IOException e) {
-            System.out.println("Couldn't able to close connection for " + socket.getInetAddress());
+            System.out.println(e.getMessage() + "," + this.getClass());
         }
     }
 }

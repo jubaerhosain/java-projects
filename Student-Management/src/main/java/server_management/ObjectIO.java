@@ -18,7 +18,7 @@ public class ObjectIO {
             fos.close();
             oos.close();
         } catch (IOException e) {
-            System.out.println("Couldn't able to append object at " + fileName);
+            System.out.println(e.getMessage() + ", " + this.getClass());
         }
     }
 
@@ -34,9 +34,7 @@ public class ObjectIO {
             }
             fis.close();
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Couldn't able to read object from " +
-                    fileName + " at ObjectIO.java/readObjects(String fileName)");
-            e.printStackTrace();
+            System.out.println(e.getMessage() + ", " + this.getClass());
         }
 
         return objects;
